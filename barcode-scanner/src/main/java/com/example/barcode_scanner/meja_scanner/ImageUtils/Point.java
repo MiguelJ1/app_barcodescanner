@@ -1,4 +1,4 @@
-package com.example.barcodecodescannerandroid_2.BarcodeScanner;
+package com.example.barcode_scanner.meja_scanner.ImageUtils;
 
 public class Point {
     public int row;

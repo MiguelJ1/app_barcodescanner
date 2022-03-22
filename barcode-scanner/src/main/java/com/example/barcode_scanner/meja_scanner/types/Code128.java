@@ -1,4 +1,4 @@
-package com.example.barcodecodescannerandroid_2.BarcodeScanner.types;
+package com.example.barcode_scanner.meja_scanner.types;
 
 import java.util.ArrayList;
 import java.util.Arrays;

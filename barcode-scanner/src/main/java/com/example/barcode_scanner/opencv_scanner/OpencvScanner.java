@@ -20,7 +20,12 @@ public class OpencvScanner implements IScanner {
     }
 
     @Override
-    public String scan(Bitmap bitmap) {
+    public String scan(Object imageObject) {
+        return null;
+    }
+
+    @Override
+    public Object buildObjetToScan(Bitmap bitmap) {
         return null;
     }
 

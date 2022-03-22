@@ -1,8 +1,5 @@
 package com.example.barcodecodescannerandroid_2;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -13,21 +10,18 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.barcode_scanner.IScanner;
 import com.example.barcode_scanner.meja_scanner.MejaScanner;
 import com.example.barcode_scanner.opencv_scanner.OpencvScanner;
-import com.example.barcodecodescannerandroid_2.BarcodeScanner.BarcodeScanner;
-import com.example.barcodecodescannerandroid_2.BarcodeScanner.Image;
-import com.example.barcodecodescannerandroid_2.dao.IImagesDao;
-import com.example.barcodecodescannerandroid_2.dao.ImagesDaoImp;
 import com.example.barcodecodescannerandroid_2.dao.PathImageFactory;
-
 
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private IImagesDao imagesDao;
 
     private TextView tvMessage;
     private Button btnScan;
@@ -44,15 +38,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tvMessage = (TextView) findViewById(R.id.tv_message);
-        btnScan = (Button) findViewById(R.id.btn_scan);
-        btnLoadImage = (Button) findViewById(R.id.btn_load_img);
-        ivImages = (ImageView) findViewById(R.id.iv_image);
-        aSwitch =  (Switch) findViewById(R.id.swt_opencv);
+        initWidgetsUI();
+        initScanners();
+        loadImage(null);
+    }
 
-        initDao();
-        ivImages.setImageBitmap(imagesDao.getNextBitmapImage());
-
+    private void initScanners() {
         mejaScanner = new MejaScanner();
         try {
             opencvScanner = new OpencvScanner();
@@ -63,26 +54,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void initDao(){
-        imagesDao = aSwitch.isChecked() ? null : new ImagesDaoImp();
+    private void initWidgetsUI() {
+        tvMessage = (TextView) findViewById(R.id.tv_message);
+        btnScan = (Button) findViewById(R.id.btn_scan);
+        btnLoadImage = (Button) findViewById(R.id.btn_load_img);
+        ivImages = (ImageView) findViewById(R.id.iv_image);
+        aSwitch =  (Switch) findViewById(R.id.swt_opencv);
+    }
+
+    private IScanner getScanner(){
+        return aSwitch.isChecked() ? opencvScanner : mejaScanner;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void scanImage(View view) {
-        Image image = new Image(((BitmapDrawable) ivImages.getDrawable()).getBitmap());
+        Bitmap bitmap = ((BitmapDrawable) ivImages.getDrawable()).getBitmap();
+        IScanner scanner = getScanner();
+        Object objetToScan = scanner.buildObjetToScan(bitmap);
 
         Date start = new Date();
 
-        BarcodeScanner barcodeScanner = new BarcodeScanner();
-        String message = barcodeScanner.read(image);
+        String responseScan = scanner.scan(objetToScan);
 
         long duration = new Date().getTime() - start.getTime();
-        tvMessage.setText(String.format("%s\n%s\n%s\n%s",
+        tvMessage.setText(String.format("%s\n%s",
                 "Duration = " + duration,
-                "Message = " + message,
-                "mejaScan = " + mejaScanner.scan(null),
-                "opencvScan = " + opencvScanner.scan(null)
+                "Message = " + responseScan
         ));
     }
 
@@ -92,14 +89,9 @@ public class MainActivity extends AppCompatActivity {
         Bitmap imageBitmap = scanner.getImageBitmap(pathImage);
         ivImages.setImageBitmap(imageBitmap);
     }
-
-    private IScanner getScanner(){
-        return aSwitch.isChecked() ? opencvScanner : mejaScanner;
-    }
 }
 
 /*
 TODO:
-1. implementar en majaScanner el metodo scan
-2. Implementar con opencvScan el metodo scan
+1. Implementar con opencvScan el metodo scan
  */
