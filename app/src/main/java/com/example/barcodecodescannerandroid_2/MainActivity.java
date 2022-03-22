@@ -90,8 +90,3 @@ public class MainActivity extends AppCompatActivity {
         ivImages.setImageBitmap(imageBitmap);
     }
 }
-
-/*
-TODO:
-1. Corregir Scan de OpenCv, no lee todas las imagenes
- */
