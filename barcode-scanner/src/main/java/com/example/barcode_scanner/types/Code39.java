@@ -1,4 +1,4 @@
-package com.example.barcode_scanner.meja_scanner.types;
+package com.example.barcode_scanner.types;
 
 public class Code39 extends BasicCodeType{
     private static final String START = buildChar("SLSSLSLSSS");

@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi;
 import com.example.barcode_scanner.IScanner;
 import com.example.barcode_scanner.meja_scanner.ImageUtils.Image;
 import com.example.barcode_scanner.meja_scanner.ImageUtils.Rectangle;
-import com.example.barcode_scanner.meja_scanner.types.BasicCodeType;
+import com.example.barcode_scanner.types.BasicCodeType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

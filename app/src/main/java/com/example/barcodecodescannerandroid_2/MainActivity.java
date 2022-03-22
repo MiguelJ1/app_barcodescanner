@@ -93,5 +93,5 @@ public class MainActivity extends AppCompatActivity {
 
 /*
 TODO:
-1. Implementar con opencvScan el metodo scan
+1. Corregir Scan de OpenCv, no lee todas las imagenes
  */
