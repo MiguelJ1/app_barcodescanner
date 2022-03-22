@@ -9,13 +9,13 @@ import com.example.barcode_scanner.IScanner;
 import com.example.barcode_scanner.types.BasicCodeType;
 import com.example.barcode_scanner.types.Code128;
 import com.example.barcode_scanner.types.Code39;
+
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ public class OpencvScanner implements IScanner {
 
     private static final int SAMPLES_PER_IMAGE = 24;
     private static final int OFFSET_SUBIMAGE = 3;
-    private static final int BLOCKS_PER_IMAGE = 10;
+    private static final int BLOCKS_PER_IMAGE = 7;
 
     public OpencvScanner() throws Exception {
         if (!OpenCVLoader.initDebug()){
@@ -148,7 +148,7 @@ public class OpencvScanner implements IScanner {
             Mat subImage = image.clone().submat(minRow, maxRow, 0, cols);
             Imgproc.adaptiveThreshold(subImage, subImage, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, blockSize, 0);
 
-            subImages.add(subImage);
+            subImages.add(subImage.clone());
         }
         return  subImages;
     }
@@ -156,7 +156,6 @@ public class OpencvScanner implements IScanner {
     private List<IImageOperations<Mat>> getProcesses() {
         return Arrays.asList(
                 this::doNothing,
-                this::doSpecialProcess,
                 this::doOpenVertical3,
                 this::doOpenOnes7
         );
@@ -164,21 +163,6 @@ public class OpencvScanner implements IScanner {
 
     private Mat doNothing(Mat image) {
         return image.clone();
-    }
-
-    private Mat doSpecialProcess(Mat image) {
-        Mat kernelErode = Mat.ones(7, 7, CvType.CV_8U);
-        Mat kernelDilate = new Mat(3,9, CvType.CV_8U);
-        kernelDilate.put(0,0,
-                new byte[]{
-                        0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        1, 1, 1, 1, 1, 1, 1, 1, 1,
-                        0, 0, 0, 0, 0, 0, 0, 0, 0
-                });
-        Mat result = new Mat();
-        Imgproc.morphologyEx(image, result, Imgproc.MORPH_ERODE, kernelErode);
-        Imgproc.morphologyEx(image, result, Imgproc.MORPH_DILATE, kernelDilate);
-        return result;
     }
 
     private Mat doOpenVertical3(Mat image) {
