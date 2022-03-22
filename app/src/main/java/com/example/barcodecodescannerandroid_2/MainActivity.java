@@ -3,37 +3,29 @@ package com.example.barcodecodescannerandroid_2;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.barcode_scanner.IScanner;
+import com.example.barcode_scanner.meja_scanner.MejaScanner;
+import com.example.barcode_scanner.opencv_scanner.OpencvScanner;
 import com.example.barcodecodescannerandroid_2.BarcodeScanner.BarcodeScanner;
 import com.example.barcodecodescannerandroid_2.BarcodeScanner.Image;
 import com.example.barcodecodescannerandroid_2.dao.IImagesDao;
 import com.example.barcodecodescannerandroid_2.dao.ImagesDaoImp;
+import com.example.barcodecodescannerandroid_2.dao.PathImageFactory;
 
-import org.opencv.android.OpenCVLoader;
 
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static String TAG  = "MainActivity";
-
-    static {
-        if (OpenCVLoader.initDebug()) {
-            Log.d(TAG, "OpenCv init successfully");
-        } else {
-            Log.d(TAG, "OpenCv not start");
-        }
-    }
-
 
     private IImagesDao imagesDao;
 
@@ -42,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLoadImage;
     private ImageView ivImages;
     private Switch aSwitch;
+
+    private IScanner mejaScanner;
+    private IScanner opencvScanner;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -57,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
 
         initDao();
         ivImages.setImageBitmap(imagesDao.getNextBitmapImage());
+
+        mejaScanner = new MejaScanner();
+        try {
+            opencvScanner = new OpencvScanner();
+        } catch (Exception ex){
+            tvMessage.setText(ex.getMessage());
+            btnLoadImage.setEnabled(false);
+            btnScan.setEnabled(false);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -74,18 +78,28 @@ public class MainActivity extends AppCompatActivity {
         String message = barcodeScanner.read(image);
 
         long duration = new Date().getTime() - start.getTime();
-        tvMessage.setText(String.format("%s\n%s",
+        tvMessage.setText(String.format("%s\n%s\n%s\n%s",
                 "Duration = " + duration,
-                "Message = " + message
+                "Message = " + message,
+                "mejaScan = " + mejaScanner.scan(null),
+                "opencvScan = " + opencvScanner.scan(null)
         ));
     }
 
     public void loadImage(View view) {
-        ivImages.setImageBitmap(imagesDao.getNextBitmapImage());
+        String pathImage = PathImageFactory.getNextPathImage();
+        IScanner scanner = getScanner();
+        Bitmap imageBitmap = scanner.getImageBitmap(pathImage);
+        ivImages.setImageBitmap(imageBitmap);
+    }
+
+    private IScanner getScanner(){
+        return aSwitch.isChecked() ? opencvScanner : mejaScanner;
     }
 }
 
 /*
 TODO:
-1. Que el main activity tenga dos servicios del mismo padre, con los metodos scan y load image
+1. implementar en majaScanner el metodo scan
+2. Implementar con opencvScan el metodo scan
  */
