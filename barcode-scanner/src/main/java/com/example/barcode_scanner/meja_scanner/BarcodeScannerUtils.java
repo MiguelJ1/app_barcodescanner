@@ -1,8 +1,10 @@
-package com.example.barcodecodescannerandroid_2.BarcodeScanner;
+package com.example.barcode_scanner.meja_scanner;
 
-import com.example.barcodecodescannerandroid_2.BarcodeScanner.types.BasicCodeType;
-import com.example.barcodecodescannerandroid_2.BarcodeScanner.types.Code128;
-import com.example.barcodecodescannerandroid_2.BarcodeScanner.types.Code39;
+import com.example.barcode_scanner.meja_scanner.ImageUtils.Image;
+import com.example.barcode_scanner.meja_scanner.ImageUtils.Kernel;
+import com.example.barcode_scanner.meja_scanner.types.BasicCodeType;
+import com.example.barcode_scanner.meja_scanner.types.Code128;
+import com.example.barcode_scanner.meja_scanner.types.Code39;
 
 import java.util.ArrayList;
 import java.util.Arrays;

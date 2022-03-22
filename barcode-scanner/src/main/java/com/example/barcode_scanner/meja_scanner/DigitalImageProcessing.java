@@ -1,4 +1,9 @@
-package com.example.barcodecodescannerandroid_2.BarcodeScanner;
+package com.example.barcode_scanner.meja_scanner;
+
+import com.example.barcode_scanner.meja_scanner.ImageUtils.Image;
+import com.example.barcode_scanner.meja_scanner.ImageUtils.Kernel;
+import com.example.barcode_scanner.meja_scanner.ImageUtils.Point;
+import com.example.barcode_scanner.meja_scanner.ImageUtils.Rectangle;
 
 public class DigitalImageProcessing {
 
@@ -84,7 +89,7 @@ public class DigitalImageProcessing {
     }
 
     public static short convolution(Image image, short initialValue, Point position, Kernel kernel,
-                             IBooleanOperations<Short> spOp, IBooleanOperations<Short> gnOp){
+                                    IBooleanOperations<Short> spOp, IBooleanOperations<Short> gnOp){
         short pixelEval = image.pixels[position.row][position.col];
         short negativeInitialValue = (short) (255 - initialValue);
         if (negativeInitialValue == pixelEval){
