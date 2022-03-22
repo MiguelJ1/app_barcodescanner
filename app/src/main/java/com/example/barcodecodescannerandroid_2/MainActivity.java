@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,9 +18,22 @@ import com.example.barcodecodescannerandroid_2.BarcodeScanner.Image;
 import com.example.barcodecodescannerandroid_2.dao.IImagesDao;
 import com.example.barcodecodescannerandroid_2.dao.ImagesDaoImp;
 
+import org.opencv.android.OpenCVLoader;
+
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static String TAG  = "MainActivity";
+
+    static {
+        if (OpenCVLoader.initDebug()) {
+            Log.d(TAG, "OpenCv init successfully");
+        } else {
+            Log.d(TAG, "OpenCv not start");
+        }
+    }
+
 
     private IImagesDao imagesDao;
 
@@ -70,3 +84,8 @@ public class MainActivity extends AppCompatActivity {
         ivImages.setImageBitmap(imagesDao.getNextBitmapImage());
     }
 }
+
+/*
+TODO:
+1. Que el main activity tenga dos servicios del mismo padre, con los metodos scan y load image
+ */

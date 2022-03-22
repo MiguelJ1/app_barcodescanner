@@ -1,0 +1,1 @@
+/home/miguel/AndroidStudioProjects/BarcodecodeScannerAndroid_2/opencv/build/intermediates/cxx/RelWithDebInfo/t2y3y1e4/obj/armeabi-v7a

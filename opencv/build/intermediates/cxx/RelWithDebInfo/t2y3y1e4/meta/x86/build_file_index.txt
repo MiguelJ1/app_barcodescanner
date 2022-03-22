@@ -1,0 +1,1 @@
+/home/miguel/AndroidStudioProjects/BarcodecodeScannerAndroid_2/opencv/libcxx_helper/CMakeLists.txt

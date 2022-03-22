@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "BarcodecodeScannerAndroid_2"
 include ':app'
+include ':opencv'

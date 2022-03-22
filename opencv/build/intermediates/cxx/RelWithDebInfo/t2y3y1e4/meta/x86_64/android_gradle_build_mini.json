@@ -1,0 +1,33 @@
+{
+  "buildFiles": [
+    "/home/miguel/AndroidStudioProjects/BarcodecodeScannerAndroid_2/opencv/libcxx_helper/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/miguel/Android/Sdk/cmake/3.10.2.4988404/bin/ninja",
+      "-C",
+      "/home/miguel/AndroidStudioProjects/BarcodecodeScannerAndroid_2/opencv/.cxx/RelWithDebInfo/t2y3y1e4/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/miguel/Android/Sdk/cmake/3.10.2.4988404/bin/ninja",
+    "-C",
+    "/home/miguel/AndroidStudioProjects/BarcodecodeScannerAndroid_2/opencv/.cxx/RelWithDebInfo/t2y3y1e4/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "opencv_jni_shared-RelWithDebInfo-x86_64": {
+      "artifactName": "opencv_jni_shared",
+      "buildCommandComponents": [
+        "/home/miguel/Android/Sdk/cmake/3.10.2.4988404/bin/ninja",
+        "-C",
+        "/home/miguel/AndroidStudioProjects/BarcodecodeScannerAndroid_2/opencv/.cxx/RelWithDebInfo/t2y3y1e4/x86_64",
+        "opencv_jni_shared"
+      ],
+      "abi": "x86_64",
+      "output": "/home/miguel/AndroidStudioProjects/BarcodecodeScannerAndroid_2/opencv/.cxx/RelWithDebInfo/t2y3y1e4/x86_64/libopencv_jni_shared.a",
+      "runtimeFiles": []
+    }
+  }
+}
