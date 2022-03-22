@@ -44,3 +44,8 @@ public class MainActivity extends AppCompatActivity {
 11. Open `Logcat`, select `edit filter configuration`, set `filter name` and `Log Tag` with `MainActivity`
 12. Run the app in the device and check logs.
 13. Enjoy Opencv.
+
+# Notes
+
+For debugging may be required install libncurses5, use this command:
+`sudo apt install libncurses5`
