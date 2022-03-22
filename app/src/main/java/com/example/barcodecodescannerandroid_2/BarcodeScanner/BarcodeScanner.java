@@ -5,7 +5,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.barcodecodescannerandroid.BarcodeScanner.types.BasicCodeType;
+import com.example.barcodecodescannerandroid_2.BarcodeScanner.types.BasicCodeType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
