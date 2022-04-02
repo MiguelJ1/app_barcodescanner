@@ -1,5 +1,12 @@
 # Install OpenCV in Android Studio
 
+## Based on
+ - https://www.youtube.com/watch?v=psoeNfFAKL8
+ - https://medium.com/android-news/a-beginners-guide-to-setting-up-opencv-android-library-on-android-studio-19794e220f3c
+ - https://stackoverflow.com/questions/27406303/opencv-in-android-studio
+ - https://github.com/opencv/opencv/wiki/ChangeLog#version454
+
+## Steps to initial installation
 1. Add `applicationId` with `opencv.org` in `build.gradle`as:
 
 ```
